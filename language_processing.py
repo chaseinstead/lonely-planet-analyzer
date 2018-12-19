@@ -1,3 +1,5 @@
+from nltk.corpus import stopwords
+
 def plural(word):
 	if word.endswith("y"):
 		return word[:-1] +"ies"
@@ -7,4 +9,14 @@ def plural(word):
 		return word[:-2] + "en"
 	else:
 		return word + "s"
-		
+
+def unusual_words(text):
+	text_vocab = set(w.lower() for w in text if w.isalpha())
+	english_vocab = set(w.lower() for w in nltk.corpus.words.words())
+	unusual = text_vocab - english_vocab
+	return sorted(unusual)
+
+def vocab_wo_stopwords(lang, text):
+	stopwords = nltk.corpus.stopwords.words(lang)
+	content = [w for w in text if w.lower() not in stopwords]
+	return content
