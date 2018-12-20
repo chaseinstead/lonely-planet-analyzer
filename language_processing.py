@@ -1,4 +1,5 @@
 from nltk.corpus import stopwords
+import nltk
 
 def plural(word):
 	if word.endswith("y"):
@@ -16,7 +17,10 @@ def unusual_words(text):
 	unusual = text_vocab - english_vocab
 	return sorted(unusual)
 
-def vocab_wo_stopwords(lang, text):
-	stopwords = nltk.corpus.stopwords.words(lang)
-	content = [w for w in text if w.lower() not in stopwords]
+def vocab_wo_noise(lang, atext):
+	'''removes noise (stopwords, urls, punctuation) from a list of words'''
+	stop_words = nltk.corpus.stopwords.words(lang)
+	content = [w for w in atext if w.lower() not in stop_words]
+	content = [w for w in content if len(w) > 2]
+	content = [w for w in content if not "/" in w]
 	return content
