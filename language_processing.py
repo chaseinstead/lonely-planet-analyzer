@@ -11,19 +11,21 @@ def plural(word):
 	else:
 		return word + "s"
 
+
 def unusual_words_en(text):
 	text_vocab = set(w.lower() for w in text if w.isalpha())
 	english_vocab = set(w.lower() for w in nltk.corpus.words.words())
 	unusual = text_vocab - english_vocab
 	return sorted(unusual)
 
-def vocab_wo_noise(lang, atext):
+
+def vocab_wo_noise(atext, lang="english"):
 	'''removes noise (stopwords, urls, punctuation) from a list of words'''
 	stop_words = nltk.corpus.stopwords.words(lang)
 	content = [w for w in atext if w.lower() not in stop_words]
-	content = [w for w in content if len(w) > 2]
-	content = [w for w in content if not "/" in w]
+	content = [w for w in content if len(w) > 2 and not "/" in w]
 	return content
+
 
 def lexical_diversity(text):
 	return len(set(text)) / len(text)
