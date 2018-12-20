@@ -11,7 +11,7 @@ def plural(word):
 	else:
 		return word + "s"
 
-def unusual_words(text):
+def unusual_words_en(text):
 	text_vocab = set(w.lower() for w in text if w.isalpha())
 	english_vocab = set(w.lower() for w in nltk.corpus.words.words())
 	unusual = text_vocab - english_vocab
@@ -24,3 +24,6 @@ def vocab_wo_noise(lang, atext):
 	content = [w for w in content if len(w) > 2]
 	content = [w for w in content if not "/" in w]
 	return content
+
+def lexical_diversity(text):
+	return len(set(text)) / len(text)
